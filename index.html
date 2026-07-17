@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shriyansh Bole — Computer Science Engineer</title>
+<meta name="description" content="Portfolio of Shriyansh Bole — systems, security, and AI/ML engineering.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A1420;
+    --bg-panel:#0F1D2E;
+    --bg-panel-hover:#132539;
+    --grid-line:#1C2C40;
+    --border:#233752;
+    --text:#E7ECF2;
+    --text-dim:#8FA1B8;
+    --text-faint:#5C7089;
+    --amber:#FFB454;
+    --cyan:#5FD0E0;
+    --ok:#6FCF97;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/100% 44px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/44px 100%,
+      var(--bg);
+    background-attachment: fixed;
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+  ::selection{ background:var(--amber); color:#0A1420; }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+  }
+
+  .wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(10,20,32,0.82);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:60px;
+  }
+  .logo{
+    font-family:var(--mono); font-weight:600; font-size:15px;
+    letter-spacing:0.02em;
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--ok);
+    box-shadow:0 0 8px var(--ok);
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+  .navlinks{ display:flex; gap:28px; font-family:var(--mono); font-size:13px; }
+  .navlinks a{ color:var(--text-dim); text-decoration:none; transition:color .15s; }
+  .navlinks a:hover{ color:var(--amber); }
+  .navlinks a::before{ content:"/"; color:var(--text-faint); margin-right:4px; }
+
+  @media (max-width:640px){ .navlinks{ display:none; } }
+
+  /* ---------- HERO / TERMINAL ---------- */
+  header.hero{ padding:96px 0 72px; }
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; color:var(--text-faint);
+    letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;
+  }
+
+  .terminal{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    border-bottom:1px solid var(--border);
+    background:rgba(255,255,255,0.02);
+  }
+  .terminal-bar span{ width:10px; height:10px; border-radius:50%; background:#33475f; }
+  .terminal-bar .label{
+    margin-left:8px; font-family:var(--mono); font-size:12px; color:var(--text-faint);
+  }
+  .terminal-body{
+    padding:26px 24px 30px;
+    font-family:var(--mono); font-size:15px;
+  }
+  .terminal-body .line{ margin-bottom:10px; white-space:pre-wrap; }
+  .terminal-body .prompt{ color:var(--cyan); }
+  .terminal-body .out{ color:var(--text); }
+  .terminal-body .out.dim{ color:var(--text-dim); }
+  .cursor{
+    display:inline-block; width:8px; height:16px;
+    background:var(--amber); margin-left:2px; vertical-align:-2px;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  h1.name{
+    font-family:var(--mono); font-weight:700;
+    font-size:clamp(32px,5vw,52px);
+    letter-spacing:-0.01em;
+    margin:28px 0 8px;
+  }
+  .role{
+    font-family:var(--sans); font-size:18px; color:var(--text-dim);
+    margin-bottom:26px; max-width:560px;
+  }
+  .role strong{ color:var(--amber); font-weight:600; }
+
+  .cta-row{ display:flex; flex-wrap:wrap; gap:12px; }
+  .btn{
+    font-family:var(--mono); font-size:13px; font-weight:500;
+    padding:11px 18px; border-radius:6px;
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--border);
+    transition:border-color .15s, background .15s, transform .15s;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn.primary{ background:var(--amber); color:#101820; border-color:var(--amber); }
+  .btn.primary:hover{ background:#ffc476; }
+  .btn.ghost{ color:var(--text); background:transparent; }
+  .btn.ghost:hover{ border-color:var(--amber); color:var(--amber); }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{ padding:64px 0; border-top:1px solid var(--border); }
+  .sec-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:36px; }
+  .sec-num{ font-family:var(--mono); color:var(--text-faint); font-size:13px; }
+  .sec-title{ font-family:var(--mono); font-size:22px; font-weight:600; }
+  .sec-title .tag{ color:var(--amber); }
+
+  .lede{ color:var(--text-dim); max-width:640px; margin-bottom:8px; }
+
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{ display:grid; grid-template-columns:1.4fr 1fr; gap:40px; }
+  @media (max-width:720px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-grid p{ color:var(--text-dim); margin-bottom:14px; }
+  .about-grid p strong{ color:var(--text); font-weight:600; }
+
+  .fact-panel{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:8px;
+    padding:20px 22px; font-family:var(--mono); font-size:13px;
+  }
+  .fact-panel .row{ display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--grid-line); }
+  .fact-panel .row:last-child{ border-bottom:none; }
+  .fact-panel .k{ color:var(--text-faint); }
+  .fact-panel .v{ color:var(--text); text-align:right; }
+
+  /* ---------- EXPERIENCE (TRACEROUTE) ---------- */
+  .trace{ font-family:var(--mono); }
+  .trace-header{
+    display:grid; grid-template-columns:36px 1fr 120px;
+    font-size:11px; color:var(--text-faint); letter-spacing:0.06em;
+    padding:0 0 10px; border-bottom:1px solid var(--border); text-transform:uppercase;
+  }
+  .hop{
+    display:grid; grid-template-columns:36px 1fr 120px;
+    gap:10px; padding:20px 0; border-bottom:1px solid var(--grid-line);
+    align-items:start;
+  }
+  .hop:last-child{ border-bottom:none; }
+  .hop-n{ color:var(--amber); font-weight:600; }
+  .hop-host{ font-weight:600; color:var(--text); font-size:14.5px; }
+  .hop-org{ color:var(--text-dim); font-size:13px; margin-top:2px; font-family:var(--sans); }
+  .hop-ms{ color:var(--cyan); text-align:right; font-size:12.5px; }
+  .hop-desc{ grid-column:2/3; margin-top:10px; }
+  .hop-desc li{ list-style:none; color:var(--text-dim); font-family:var(--sans); font-size:14.5px; margin-bottom:6px; padding-left:16px; position:relative; }
+  .hop-desc li::before{ content:"›"; position:absolute; left:0; color:var(--amber); }
+  @media (max-width:640px){
+    .trace-header{ display:none; }
+    .hop{ grid-template-columns:28px 1fr; }
+    .hop-ms{ grid-column:2/3; text-align:left; margin-top:4px; }
+    .hop-desc{ grid-column:1/-1; }
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  @media (max-width:860px){ .proj-grid{ grid-template-columns:1fr; } }
+  .card{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:8px;
+    padding:22px; display:flex; flex-direction:column; position:relative;
+    transition:border-color .2s, background .2s;
+  }
+  .card:hover{ border-color:var(--amber); background:var(--bg-panel-hover); }
+  .card::before, .card::after{
+    content:""; position:absolute; width:10px; height:10px;
+    border:1px solid var(--text-faint); opacity:0; transition:opacity .2s;
+  }
+  .card:hover::before, .card:hover::after{ opacity:1; border-color:var(--amber); }
+  .card::before{ top:8px; left:8px; border-right:none; border-bottom:none; }
+  .card::after{ bottom:8px; right:8px; border-left:none; border-top:none; }
+  .card-time{ font-family:var(--mono); font-size:11px; color:var(--text-faint); margin-bottom:10px; }
+  .card h3{ font-size:16.5px; margin-bottom:10px; line-height:1.35; }
+  .card p{ color:var(--text-dim); font-size:14px; flex:1; margin-bottom:16px; }
+  .tags{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .tag-chip{
+    font-family:var(--mono); font-size:10.5px; color:var(--cyan);
+    border:1px solid var(--border); border-radius:4px; padding:3px 7px;
+  }
+  .card-link{
+    font-family:var(--mono); font-size:12.5px; color:var(--amber); text-decoration:none;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .card-link:hover{ text-decoration:underline; }
+
+  /* ---------- SKILLS ---------- */
+  .skill-groups{ display:grid; grid-template-columns:repeat(2,1fr); gap:28px 40px; }
+  @media (max-width:640px){ .skill-groups{ grid-template-columns:1fr; } }
+  .skill-group .label{ font-family:var(--mono); font-size:12px; color:var(--amber); margin-bottom:10px; letter-spacing:0.04em; }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-family:var(--mono); font-size:12.5px; color:var(--text);
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:5px;
+    padding:6px 10px;
+  }
+
+  /* ---------- CERTS / ACHIEVEMENTS ---------- */
+  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  @media (max-width:720px){ .two-col{ grid-template-columns:1fr; } }
+  .list-item{ display:flex; gap:12px; padding:14px 0; border-bottom:1px solid var(--grid-line); }
+  .list-item:last-child{ border-bottom:none; }
+  .list-item .bullet{ color:var(--amber); font-family:var(--mono); }
+  .list-item .title{ font-weight:600; font-size:14.5px; }
+  .list-item .sub{ color:var(--text-dim); font-size:13px; margin-top:3px; }
+  .list-item a{ color:var(--cyan); text-decoration:none; font-size:12.5px; font-family:var(--mono); }
+  .list-item a:hover{ text-decoration:underline; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:60px 0 80px; border-top:1px solid var(--border); }
+  .footer-grid{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px; }
+  footer h2{ font-family:var(--mono); font-size:26px; margin-bottom:10px; }
+  footer p{ color:var(--text-dim); max-width:420px; margin-bottom:20px; }
+  .footer-links{ display:flex; flex-direction:column; gap:10px; font-family:var(--mono); font-size:13.5px; }
+  .footer-links a{ text-decoration:none; color:var(--text-dim); transition:color .15s; }
+  .footer-links a:hover{ color:var(--amber); }
+  .copyright{ margin-top:50px; font-family:var(--mono); font-size:11.5px; color:var(--text-faint); }
+
+  @media (prefers-reduced-motion:reduce){
+    *{ animation:none !important; transition:none !important; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span>shriyansh.bole</div>
+    <div class="navlinks">
+      <a href="#about">about</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span></span><span></span><span></span>
+        <span class="label">shriyansh@portfolio: ~</span>
+      </div>
+      <div class="terminal-body" id="termBody">
+        <div class="line"><span class="prompt">$</span> <span class="out">whoami</span></div>
+        <div class="line out dim" id="typeLine1"></div>
+        <div class="line"><span class="prompt">$</span> <span class="out">status</span></div>
+        <div class="line out dim" id="typeLine2"></div>
+      </div>
+    </div>
+
+    <h1 class="name">Shriyansh Bole</h1>
+    <p class="role">Computer Science engineer building at the intersection of <strong>security</strong>, <strong>AI/ML</strong>, and <strong>full-stack systems</strong> — currently completing a B.Tech at VIT-AP.</p>
+
+    <div class="cta-row">
+      <a class="btn primary" href="#projects">View projects →</a>
+      <a class="btn ghost" href="mailto:shriyanshbole5@gmail.com">Email</a>
+      <a class="btn ghost" href="https://github.com/Shrinavv" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn ghost" href="https://linkedin.com/in/shriyanshbole" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">// <span class="tag">about</span></span>
+    </div>
+    <div class="about-grid reveal">
+      <div>
+        <p><strong>I work where systems meet decisions</strong> — measuring how something actually behaves under load or attack, then building the tool that fixes it. That's shown up as network protocol testing at IIT (ISM) Dhanbad, a compliance platform that watches itself, and a computer-vision pipeline that gives people real-time feedback on their own movement.</p>
+        <p>I like problems with a number attached: a 4.2x amplification factor, a 35% latency cut, a 200-case test matrix. Evidence, not adjectives.</p>
+        <p>Selected as one of 20 fellows nationwide for India's Internet Governance Fellowship (inSig 2025), and currently reading CGPA 8.93/10 in Computer Science at VIT-AP, graduating 2027.</p>
+      </div>
+      <div class="fact-panel">
+        <div class="row"><span class="k">location</span><span class="v">Andhra Pradesh, IN</span></div>
+        <div class="row"><span class="k">degree</span><span class="v">B.Tech CSE, 2023–2027</span></div>
+        <div class="row"><span class="k">cgpa</span><span class="v">8.93 / 10.00</span></div>
+        <div class="row"><span class="k">focus</span><span class="v">Security · AI/ML · Full-stack</span></div>
+        <div class="row"><span class="k">status</span><span class="v" style="color:var(--ok)">open to opportunities</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">// <span class="tag">experience</span></span>
+    </div>
+    <p class="lede reveal" style="margin-bottom:30px;">traceroute career --verbose</p>
+
+    <div class="trace reveal">
+      <div class="trace-header">
+        <span>hop</span><span>host</span><span style="text-align:right">outcome</span>
+      </div>
+
+      <div class="hop">
+        <div class="hop-n">01</div>
+        <div>
+          <div class="hop-host">iit-ism-dhanbad.research</div>
+          <div class="hop-org">Research &amp; Development Intern · May – Jul 2025</div>
+        </div>
+        <div class="hop-ms">4.2x factor</div>
+        <ul class="hop-desc">
+          <li>Built an isolated Kali Linux / VMware lab to run and analyze stateful MQTT-SN amplification attacks against a live EMQX broker.</li>
+          <li>Structured targeted BPF filters in tshark/Wireshark, cutting packet-capture overhead by 25% during high-throughput stress tests.</li>
+          <li>Wrote Bash automation to parse logs and capture vectors, identifying and validating a 4.2x amplification factor and reporting mitigation models to faculty stakeholders.</li>
+        </ul>
+      </div>
+
+      <div class="hop">
+        <div class="hop-n">02</div>
+        <div>
+          <div class="hop-host">deloitte-au.forage</div>
+          <div class="hop-org">Cybersecurity Analyst — Virtual Internship · 2025</div>
+        </div>
+        <div class="hop-ms">simulated</div>
+        <ul class="hop-desc">
+          <li>Analyzed enterprise web activity and network traffic logs to inspect security events and flag anomalous behavior.</li>
+          <li>Ran threat modeling on web application vulnerabilities, mapping indicators of compromise to known attack vectors.</li>
+          <li>Wrote client-facing risk advisories, turning exploit matrices into mitigation roadmaps for simulated stakeholders.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">// <span class="tag">projects</span></span>
+    </div>
+
+    <div class="proj-grid reveal">
+
+      <div class="card">
+        <div class="card-time">Feb – Apr 2026</div>
+        <h3>Cookie Consent Management Platform</h3>
+        <p>Full-stack privacy backend compliant with India's DPDP Act, 2023, with a Manifest V3 Chrome extension that intercepts and blocks non-compliant tracking scripts in real time. Indexed MongoDB queries and refactored Express middleware for a 35% API response-time improvement; deployed on AWS EC2 with CORS policies and environment segregation.</p>
+        <div class="tags">
+          <span class="tag-chip">React.js</span><span class="tag-chip">Node.js</span><span class="tag-chip">MongoDB</span><span class="tag-chip">AWS EC2</span>
+        </div>
+        <a class="card-link" href="https://github.com/Shrinavv/cmap" target="_blank" rel="noopener">View repository →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-time">Dec 2025 – Apr 2026</div>
+        <h3>AI Kinematic Posture Detection Engine</h3>
+        <p>Real-time computer-vision pipeline using YOLO-based pose estimation to compute joint-angle coordinates and deliver sub-second exercise-form feedback. Vectorized the heuristic engine in NumPy to cut processing latency by 40%, and restructured OpenCV frame queues to hold a stable 30+ FPS during multi-user tracking.</p>
+        <div class="tags">
+          <span class="tag-chip">YOLO Pose</span><span class="tag-chip">OpenCV</span><span class="tag-chip">PyTorch</span><span class="tag-chip">NumPy</span>
+        </div>
+        <a class="card-link" href="https://github.com/Shrinavv/Smart-Gym" target="_blank" rel="noopener">View repository →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-time">Jan – Mar 2025</div>
+        <h3>Web-Based Digital Signature Platform</h3>
+        <p>RSA-2048 + SHA-256 document signing and verification service behind a Flask REST API, averaging under 15ms per signature verification. Test-driven throughout, with 200+ edge-case validations run to guarantee zero tampering or authentication failures in transit.</p>
+        <div class="tags">
+          <span class="tag-chip">Flask</span><span class="tag-chip">PyCryptodome</span><span class="tag-chip">REST API</span><span class="tag-chip">TDD</span>
+        </div>
+        <a class="card-link" href="https://github.com/Shrinavv/Digital-Signature-RSA" target="_blank" rel="noopener">View repository →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <span class="sec-title">// <span class="tag">skills</span></span>
+    </div>
+
+    <div class="skill-groups reveal">
+      <div class="skill-group">
+        <div class="label">languages</div>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">Java</span><span class="chip">C++</span><span class="chip">C</span><span class="chip">SQL</span><span class="chip">NoSQL</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="label">ai / ml</div>
+        <div class="chips">
+          <span class="chip">PyTorch</span><span class="chip">TensorFlow</span><span class="chip">OpenCV</span><span class="chip">NumPy</span><span class="chip">Pandas</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="label">full-stack</div>
+        <div class="chips">
+          <span class="chip">React.js</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">Flask</span><span class="chip">Mongoose</span><span class="chip">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="label">systems / security</div>
+        <div class="chips">
+          <span class="chip">Linux (Kali)</span><span class="chip">Nmap</span><span class="chip">Metasploit</span><span class="chip">Wireshark</span><span class="chip">Scapy</span><span class="chip">Bash</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="label">cloud / tools</div>
+        <div class="chips">
+          <span class="chip">AWS EC2</span><span class="chip">AWS S3</span><span class="chip">AWS IAM</span><span class="chip">Git / GitHub</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="label">practices</div>
+        <div class="chips">
+          <span class="chip">System Design</span><span class="chip">TDD</span><span class="chip">Agile</span><span class="chip">Latency Optimization</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <span class="sec-title">// <span class="tag">certifications</span> + <span class="tag">achievements</span></span>
+    </div>
+
+    <div class="two-col reveal">
+      <div>
+        <div class="list-item">
+          <span class="bullet">▸</span>
+          <div>
+            <div class="title">AWS Cloud Architecture Badge</div>
+            <div class="sub">Deploying highly available, fault-tolerant cloud infrastructure</div>
+            <a href="https://www.credly.com/badges/e07035e1-5967-46b0-88bc-ec52225b0782/public_url" target="_blank" rel="noopener">verify on Credly →</a>
+          </div>
+        </div>
+        <div class="list-item">
+          <span class="bullet">▸</span>
+          <div>
+            <div class="title">Cyber Security &amp; Ethical Hacking — Professional Certificate</div>
+            <div class="sub">Black Bucks</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <span class="bullet">▸</span>
+          <div>
+            <div class="title">Advanced Workshop on LLM Security</div>
+            <div class="sub">IIT Madras &amp; Null Chapter — prompt-injection mitigation, alignment defenses</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <span class="bullet">▸</span>
+          <div>
+            <div class="title">Quantum Computing &amp; Applications Seminar</div>
+            <div class="sub">NIT Warangal — qubit manipulation, cryptographic impact</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="list-item">
+          <span class="bullet">▸</span>
+          <div>
+            <div class="title">Fellow, inSig 2025</div>
+            <div class="sub">1 of 20 selected nationwide for India's Internet Governance Fellowship — data protection &amp; digital policy</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <span class="bullet">▸</span>
+          <div>
+            <div class="title">Technical Team Member, Null Chapter Andhra Pradesh</div>
+            <div class="sub">Security evaluations, source-code reviews, workshop organizing</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <span class="bullet">▸</span>
+          <div>
+            <div class="title">Club Monitor, Computer Society of India — VIT-AP</div>
+            <div class="sub">Task delegation and agile coordination across a large student technical body</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid reveal">
+      <div>
+        <h2>Let's talk.</h2>
+        <p>Open to internships and full-time roles across security, AI/ML, and product-facing engineering. Reply time: usually under a day.</p>
+        <a class="btn primary" href="mailto:shriyanshbole5@gmail.com">shriyanshbole5@gmail.com</a>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/Shrinavv" target="_blank" rel="noopener">github.com/Shrinavv</a>
+        <a href="https://linkedin.com/in/shriyanshbole" target="_blank" rel="noopener">linkedin.com/in/shriyanshbole</a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Shriyansh Bole. Built with HTML, CSS &amp; a healthy amount of packet capture.</div>
+  </div>
+</footer>
+
+<script>
+  // Typewriter effect for hero terminal
+  function typeLine(el, text, speed, delay, cb){
+    setTimeout(()=>{
+      let i = 0;
+      const iv = setInterval(()=>{
+        el.textContent = text.slice(0, i+1);
+        i++;
+        if(i >= text.length){ clearInterval(iv); if(cb) cb(); }
+      }, speed);
+    }, delay);
+  }
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const l1 = document.getElementById('typeLine1');
+  const l2 = document.getElementById('typeLine2');
+  const t1 = "> Shriyansh Bole — Computer Science Engineer, VIT-AP";
+  const t2 = "> Building at the intersection of security, AI/ML & full-stack systems";
+
+  if(reduced){
+    l1.textContent = t1;
+    l2.textContent = t2;
+  } else {
+    typeLine(l1, t1, 22, 300, ()=>{
+      typeLine(l2, t2, 18, 250);
+    });
+  }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduced){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold:0.12 });
+    revealEls.forEach(el=>io.observe(el));
+  } else {
+    revealEls.forEach(el=>el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
